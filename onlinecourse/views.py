@@ -113,9 +113,6 @@ def enroll(request, course_id):
          # Redirect to show_exam_result with the submission id
 def extract_answers(request):
         submitted_anwsers = []
-        print("****************** DELETE THIS LATER, DELETE!!!!!!!!!!!!!!!!!!!! ")
-        print("request.POST")
-        print(request.POST)
         for key in request.POST:
             if key.startswith('choice'):
                 value = request.POST[key]
@@ -125,16 +122,10 @@ def extract_answers(request):
 
 def submit(request, course_id):
     # <HINT> A example method to collect the selected choices from the exam form from the request object
-   enrollment = Enrollment.objects.get(user=request.user, course=course_id)
-   print("****************** DELETE THIS LATER, DELETE!!!!!!!!!!!!!!!!!!!! ")
-   print("enrollment") 
-   print(enrollment) 
+   enrollment = Enrollment.objects.get(user=request.user, course=course_id) 
 
    submission = Submission.objects.create(enrollment=enrollment)
    submitted_anwsers = extract_answers(request)
-   print("****************** DELETE THIS LATER, DELETE!!!!!!!!!!!!!!!!!!!! ")
-   print("submitted_anwsers") 
-   print(submitted_anwsers) 
    submission.choices.set(submitted_anwsers)
 
    return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id, submission.id)))
@@ -150,14 +141,7 @@ def submit(request, course_id):
 def show_exam_result(request, course_id, submission_id):
     course = Course.objects.get(id=course_id)
     submission = Submission.objects.get(id=submission_id)
-    print("****************** DELETE THIS LATER, DELETE!!!!!!!!!!!!!!!!!!!! ")
-    print("course and submission:")
-    print(course)
-    print(submission)
 
-    # questions = Question.objects.get(course=course_id)
-    print(">>>>")
-    print(Question.objects.filter(course=course_id))
     max_score = 0
     score = 0
     for question in Question.objects.filter(course=course_id):
