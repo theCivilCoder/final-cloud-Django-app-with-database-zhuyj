@@ -77,7 +77,7 @@
                 <!--  Click to expand elements within the collapse div    -->
 
                 <!-- A choice submission form -->
-                <form id="questionform" action="" method="post">
+                <form id="questionform" action="{% url 'onlinecourse:submit' course_id=course.id %}" method="post">
                     <!-- ... for each question in the course ... -->
                     {% for question in course.question_set.all %}
                     <div class="card mt-1">
